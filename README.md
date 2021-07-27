@@ -11,10 +11,10 @@ I used mobaxterm to connect to the VM, and set the required port-forward informa
 - 31080/31081->31080/31081 for go app in k8s
 
 For update, I used the following commands:
-'''
+```
 sudo apt-get update
 sudo apt-get dist-upgrade
-'''
+```
 
 ### Task 2: install gitlab-ce version in the host
 
@@ -46,10 +46,10 @@ Note that I have to turn of "GO111MODULE" to enable the container run the go app
 Since the port 8082 is in use, I exposed the container to port 8083.
 
 Commands:
-'''
+```
 docker build . -t go-web-hello-world
 docker run -p 8083:8081 go-web-hello-world
-'''
+```
 
 Output:
 ```
@@ -77,21 +77,21 @@ Followed https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/ to
 Checked in the admin.conf file into the gitlab repo
 
 Important commands:
-'''
+```
 kubectl taint nodes --all node-role.kubernetes.io/master-  #To ba able to schedule pods
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml  #add network configuration
-'''
+```
 
 ### Task 10: deploy the hello world container
 
 Please refer to the deployment.yaml file in this repository.
 
 Commands:
-'''
+```
 kubectl create -f deployment.yaml
 kubectl expose deployment go-web-hello-world --type NodePort
 kubectl edit svc go-web-hello-world  #then change "nodePort" to 31080
-'''
+```
 
 Output:
 ```
@@ -108,19 +108,26 @@ Followed the instrunction in:
 https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
 
 Important commands:
-'''
+```
 kubectl proxy --port=31081
-'''
+```
 
 Output: https://127.0.0.1:31081 (asking for token)
 
 ### Task 12: generate token for dashboard login in task 11
 
+Reference: https://www.replex.io/blog/how-to-install-access-and-add-heapster-metrics-to-the-kubernetes-dashboard
+
 Commands:
-'''
+```
 kubectl create serviceaccount dashboard-admin-sa
 kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
 kubectl get secrets  #get the name of the secrets
 kubectl describe secret dashboard-admin-sa-token-2tbfj  #get token
-'''
+```
+
 Then copy the token to the dashboard login page and then it will be able to the dashboard. 
+
+### Task 13: publish your work
+
+Available at https://github.com/erfanw/go-web-hello-world/

@@ -79,7 +79,7 @@ Checked in the admin.conf file into the gitlab repo
 Important commands:
 ```
 kubectl taint nodes --all node-role.kubernetes.io/master-  #To ba able to schedule pods
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml  #add network configuration
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
 
 ### Task 10: deploy the hello world container
